@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Light background */
+        }
+
+        .search-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #ffffff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .search-form {
+            display: flex;
+            flex-grow: 1; /* Allow the search form to grow */
+        }
+
+        .search-form input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%; /* Full width */
+            margin-right: 5px; /* Space between input and button */
+        }
+
+        .search-form button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s; 
+        }
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+        .profile-link {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+            margin-left: 20px; 
+        }
+        .profile-link:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            margin: 20px; 
+            font-size: 24px; 
+            color: #333; 
+        }
+
+        @media (max-width: 600px) {
+            .search-section {
+                flex-direction: column;
+                align-items: flex-start; 
+            }
+
+            .search-form {
+                width: 100%; 
+            }
+
+            .profile-link {
+                margin-top: 10px; 
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="search-section">
+        <h1>Search for Products</h1>
+        <form id="searchForm" class="search-form">
+            <input id="searchInput" type="text" name="search" placeholder="Search..." required>
+            <button type="submit">Search</button>
+            <button style="margin-left: 2px;" onclick="window.location.href='/home'">Back to Home</button>
+        </form>
+    </div>
+
+    <section id="searchResults" style="display:none;">
+        <h2>Search Results</h2>
+        <div class="results-list"></div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <h2>Featured Categories</h2>
+        <div class="category-list">
+            <div class="category">
+                <img src="/images/Fresh_Fruits.png" height="200" width="300" alt="Fruits">
+                <h3>Fresh Fruits</h3>
+                <p>Hand-picked fruits to keep you healthy and energized.</p>
+            </div>
+            <div class="category">
+                <img src="/images/vegetable.png" height="200" width="300" alt="Vegetables">
+                <h3>Vegetables</h3>
+                <p>Fresh vegetables sourced from local farms.</p>
+            </div>
+            <div class="category">
+                <img src="/images/Dairy_Products.png" height="200" width="300" alt="Dairy">
+                <h3>Dairy Products</h3>
+                <p>High-quality dairy products for your daily needs.</p>
+            </div>
+            <div class="category">
+                <img src="/images/brakery.jpg" height="200" width="300" alt="Bakery">
+                <h3>Bakery Items</h3>
+                <p>Delicious bakery items baked fresh daily.</p>
+            </div>
+            <div class="category">
+                <img src="/images/snaks.jpg" height="200" width="300" alt="Snacks">
+                <h3>Snacks</h3>
+                <p>Variety of snacks to satisfy your cravings.</p>
+            </div>
+            <div class="category">
+                <img src="/images/beverage.jpg" height="200" width="300" alt="Beverages">
+                <h3>Beverages</h3>
+                <p>Refreshing beverages for every occasion.</p>
+            </div>
+            <div class="category">
+                <img src="/images/forzenfood.jpg" height="200" width="300" alt="Frozen Foods">
+                <h3>Frozen Foods</h3>
+                <p>Convenient frozen meals and ingredients.</p>
+            </div>
+            <div class="category">
+                <img src="/images/Pantry_Staples.jpg" height="200" width="300" alt="Pantry Staples">
+                <h3>Pantry Staples</h3>
+                <p>Essential items for your pantry and kitchen.</p>
+            </div>
+            <div class="category">
+                <img src="/images/organic.jpg" height="200" width="300" alt="Organic Products">
+                <h3>Organic Products</h3>
+                <p>Premium organic products for a healthier lifestyle.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="product-list">
+            <div class="product">
+                <img src="/images/coconut.jpg" height="300" width="300" alt="Organic Almonds">
+                <h3>Organic Almonds</h3>
+                <p>$10.00</p>
+            </div>
+            <div class="product">
+                <img src="/images/raw-cashews.jpg" height="300" width="300" alt="Fresh Avocados">
+                <h3>Fresh Avocados</h3>
+                <p>$15.00</p>
+            </div>
+            <div class="product">
+                <img src="/images/grain.jpg" height="300" width="300" alt="Whole Grain Bread">
+                <h3>Whole Grain Bread</h3>
+                <p>$12.00</p>
+            </div>
+            <div class="product">
+                <img src="/images/honey.jpg" height="300" width="300" alt="Organic Honey">
+                <h3>Natural Honey</h3>
+                <p>$20.00</p>
+            </div>
+        </div>
+    </section>
+
+    <%-include("footer.ejs") %>
+    
+    <script>
+        document.getElementById("searchForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const searchQuery = document.getElementById("searchInput").value;
+            const response = await fetch(`/api/searchItems?query=${encodeURIComponent(searchQuery)}`);
+            
+            const data = await response.json();
+            displaySearchResults(data);
+        });
+    
+        function displaySearchResults(data) {
+            const resultsList = document.querySelector(".results-list");
+            if (data.message) {
+                resultsList.innerHTML = "<p>No results found.</p>";
+            } else {
+                resultsList.innerHTML = data.map(product => `
+                    <div class="product">
+                        <img src="${product.image}" height="200" width="200" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>₹${product.price}</p>
+                    </div>
+                `).join('');
+            }
+            document.getElementById("searchResults").style.display = 'block';
+        }
+    </script>    
+</body>
+</html>

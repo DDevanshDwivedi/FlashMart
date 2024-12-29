@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="shortcut icon" href="/images/icon.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .cart-items {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .cart-item-info h2 {
+            font-size: 18px;
+            color: #333;
+            margin: 0 0 10px;
+        }
+
+        .cart-item-info p {
+            margin: 0;
+            color: #666;
+        }
+
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity input {
+            width: 50px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .remove-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .remove-button:hover {
+            background-color: #e60000;
+        }
+
+        .checkout-summary {
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .checkout-summary h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .checkout-summary .total {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .checkout-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive layout for smaller screens */
+        @media (max-width: 768px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cart-item img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .cart-item-info {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Your Cart</h1>
+    <div class="cart-items">
+        <div class="cart-item">
+            <img src="https://via.placeholder.com/100" alt="Product Image">
+            <div class="cart-item-info">
+                <h2>Product Name</h2>
+                <p>Description of the product goes here.</p>
+                <p class="cart-item-price">$29.99</p>
+            </div>
+            <div class="cart-item-actions">
+                <div class="quantity">
+                    <button>-</button>
+                    <input type="text" value="1">
+                    <button>+</button>
+                </div>
+                <button class="remove-button">Remove</button>
+            </div>
+        </div>
+        <!-- Repeat the above div for more cart items -->
+    </div>
+
+    <div class="checkout-summary">
+        <h2>Order Summary</h2>
+        <p class="total">Total: $29.99</p>
+        <button class="checkout-button">Proceed to Checkout</button>
+    </div>
+</div>
+
+</body>
+</html>

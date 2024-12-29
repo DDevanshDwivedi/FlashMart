@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="shortcut icon" href="/images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form action="/loginres" method="post">
+            <label for="email">Email ID</label>
+            <input type="email" name="email" id="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+            <div class="show-poss">
+                <input class="showinput" type="checkbox" name="" id="ShowPS" onclick="showpsd()">
+                    <span>Show Password</span>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <div class="links">
+            <a href="/forget">Forget Password</a>
+            <a href="/register">Sign up</a>
+        </div>
+    </div>
+</body>
+<script>
+    function showpsd() {
+    var passwordInput = document.getElementById('password');
+    passwordInput.type = (passwordInput.type === 'password') ? 'text' : 'password';
+}   
+    
+</script>
+</html>

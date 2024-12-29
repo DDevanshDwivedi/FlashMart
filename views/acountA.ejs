@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .profile-info h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .item-management {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .item-management button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .item-management button:hover {
+            background-color: #0056b3;
+        }
+
+        .item-list {
+            margin-top: 20px;
+        }
+
+        .item-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .item-list li {
+            background: #f4f4f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="<%= profilePhoto %>.png" alt="Profile Photo">
+            <div class="profile-info">
+                <h2>
+                    <%= name %>
+                </h2>
+                <p>Email: <%= email %>
+                </p>
+                <p>Phone: <%= phone %>
+                </p>
+                <p>Address: <%= address %>
+                </p>
+                <p>Gender: <%= gender %>
+                </p>
+                <p>User Type: <%= userType %>
+                </p>
+            </div>
+        </div>
+
+        <h3>Item Management</h3>
+        <div class="item-management">
+            <button id="addItem">Add Item</button>
+            <button id="logoutButton" class="logout-button" onclick="window.location.href='/home'">Logout</button>
+            <button id="showItems">Show All Items</button>
+        </div>
+
+        <div class="item-list" id="itemList"></div>
+    </div>
+
+    <script>
+        document.getElementById("addItem").addEventListener("click", async () => {
+            let item = '';
+            let category = '';
+            let price = '';
+            while (!item) {
+                item = prompt("Enter the item name (required):");
+                if (!item) {
+                    alert("Item name is required. Please enter a valid name.");
+                }
+            }
+            while (!category) {
+                category = prompt("Enter the category (required):");
+                if (!category) {
+                    alert("Category is required. Please enter a valid category.");
+                }
+            }
+            while (!price) {
+                price = prompt("Enter the price (required):");
+                if (!price || isNaN(price)) {
+                    alert("Price is required and must be a number. Please enter a valid price.");
+                    price = '';
+                }
+            }
+
+            if (item && category && price) {
+                const response = await fetch("/api/addItem", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ name: item, category, price })
+                });
+
+                const result = await response.json();
+                alert(result.message);
+                showItems();
+            }
+        });
+        document.getElementById("showItems").addEventListener("click", async () => {
+            showItems();
+        });
+        async function showItems() {
+            const response = await fetch("/api/showItems", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const items = await response.json();
+            const itemList = document.getElementById("itemList");
+            let c=1;
+            itemList.innerHTML = "<ul>" + items.map(item => `
+        <li>
+            <span>${c++} - ${item.name} - ${item.category} - ₹${item.price}</span>
+            <button class="delete-btn" onclick="deleteItem('${item.itemId}')">Delete</button>
+        </li>
+    `).join('') + "</ul>";
+        }
+
+
+        async function deleteItem(itemId) {
+            const response = await fetch("/api/deleteItem", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ itemId })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            showItems(); // Reload the items list after deleting
+        }
+    </script>
+
+</body>
+
+</html>

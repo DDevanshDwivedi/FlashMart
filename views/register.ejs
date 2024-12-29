@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Grocery Website</title>
+    <link rel="shortcut icon" href="/images/icon1.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/register.css">
+</head>
+<body>
+    <form action="/submit_registration" method="POST" enctype="multipart/form-data">
+    <div class="register-container">
+        <div class="left-section">
+            <h2>Create Your Account</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="john.doe@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder="1234567890">
+                </div>
+                <div class="form-group">
+                    <label for="otp">OTP</label>
+                    <div class="otp-section">
+                        <input type="number" id="otp" name="otp" placeholder="Enter OTP" required>
+                        <button type="button" id="get-otp" onclick="getOTP()">Get OTP</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="userType">User Type</label>
+                    <select name="userType" id="userType" required>
+                        <option value="" disabled selected>Select User Type</option>
+                        <option value="customer">Customer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="form-group">
+                <label for="profile-photo">Profile Photo</label>
+                <input type="file" id="profile-photo" name="profile-photo" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="********">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required placeholder="********">
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="gender-group">
+                    <label>
+                        <input type="radio" name="gender" value="male" required> Male
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="female" required> Female
+                    </label>
+                    <label>
+                        <input type="radio" name="gender" value="other" required> Other
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="4" required placeholder="123 Main St, Apt 4B, City, State, ZIP"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register">
+            </div>
+        </div>
+    </div>
+</form>
+
+    <script>
+        function getOTP() {
+            alert("OTP request sent!");
+        }
+    </script>
+</body>
+</html>

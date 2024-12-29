@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .profile-info h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .purchases {
+            margin-top: 30px;
+        }
+
+        .item-management {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item-management button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .item-management button:hover {
+            background-color: #0056b3;
+        }
+
+        .item-list {
+            margin-top: 20px;
+        }
+
+        .item-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .item-list li {
+            background: #f4f4f9;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .item-list li input {
+            margin-right: 10px;
+        }
+
+        .canceled {
+            text-decoration: line-through;
+            color: red;
+        }
+
+        .receipt {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .receipt p {
+            margin: 5px 0;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <img src="<%= profilePhoto %>.png" alt="Profile Photo">
+            <div class="profile-info">
+                <h2><%= name %></h2>
+                <p>Email: <%= email %></p>
+                <p>Phone: <%= phone %></p>
+                <p>Address: <%= address %></p>
+                <p>Gender: <%= gender %></p>
+            </div>
+        </div>
+
+        <div class="purchases">
+            <h3>Purchase History</h3>
+            <ul>
+                <% if (purchases.length > 0) { %>
+                    <% purchases.forEach(purchase => { %>
+                        <li>
+                            <p>Purchase Date: <%= new Date(purchase.purchaseDate).toLocaleDateString() %></p>
+                            <ul>
+                                <% purchase.items.forEach(item => { %>
+                                    <li>Item ID: <%= item.itemId %> - <%= item.name %></li>
+                                <% }) %>
+                            </ul>
+                        </li>
+                    <% }) %>
+                <% } else { %>
+                    <p>No purchases found.</p>
+                <% } %>
+            </ul>
+        </div>
+        <h3>Item Management</h3>
+        <div class="item-management">
+            <button id="showItems">Show All Items</button>
+            <button id="logoutButton" class="logout-button" onclick="window.location.href='/home'">Logout</button>
+            <button id="makePayment">Make Payment</button>
+        </div>
+
+        <div class="item-list" id="itemList"></div>
+
+        <div class="receipt" id="receipt">
+            <h4>Payment Receipt</h4>
+            <p>Thank you for your payment!</p>
+            <p>Total Amount: ₹<span id="totalAmount"></span></p>
+        </div>
+    </div>
+
+    <script>
+        let items = [];
+
+        async function fetchItems() {
+            const response = await fetch("/api/showItems", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            items = await response.json();
+            displayItems();
+        }
+
+        function displayItems() {
+    const itemList = document.getElementById("itemList");
+    itemList.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Item ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${items.map(item => `
+                    <tr class="${item.canceled ? 'canceled' : ''}">
+                        <td><input type="checkbox" value="${item.itemId}" ${item.canceled ? 'disabled' : ''} /></td>
+                        <td>${item.itemId}</td>
+                        <td>${item.name}</td>
+                        <td>${item.category}</td>
+                        <td>₹${item.price}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+
+        document.getElementById("showItems").addEventListener("click", fetchItems);
+
+        document.getElementById("makePayment").addEventListener("click", () => {
+            const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(input => input.value);
+            const totalAmount = selectedItems.reduce((total, itemId) => {
+                const item = items.find(i => i.itemId === itemId);
+                return total + (item ? parseFloat(item.price) : 0);
+            }, 0);
+            document.getElementById("totalAmount").textContent = totalAmount;
+            document.getElementById("receipt").style.display = "block";
+            alert("Payment successful!");
+        });
+
+
+        document.getElementById("logoutButton").addEventListener("click", () => {
+                window.location.href = "http://localhost:8000/home";
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Confirmation</title>
+    <link rel="shortcut icon" href="/images/icon.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .info {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .info p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffcc00;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #ffd633;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Thank You for Contacting Us, <b><%= name %></b></h1>
+        <p>Your message has been successfully sent. We will get back to you shortly.</p>
+
+        <div class="info">
+            <h2>Submitted Details:</h2>
+            <p><strong>Name:</strong> <%= name %></p>
+            <p><strong>Email:</strong> <%= email %></p>
+            <p><strong>Phone:</strong> <%= phone %></p>
+            <p><strong>Address:</strong> <%= address %></p>
+            <p><strong>Reason for Contact:</strong> <%= reason %></p>
+            <p><strong>Subject:</strong> <%= subject %></p>
+            <p><strong>Message:</strong></p>
+            <p><%= message %></p>
+        </div>
+
+        <a href="/home" class="back-link">Back to Home</a>
+    </div>
+
+</body>
+</html>
